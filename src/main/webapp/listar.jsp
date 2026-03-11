@@ -16,6 +16,7 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
     <input type="text" name="nombre">
     <input type="submit" value="Buscar">
 </form>
+<p><a href="<%= request.getContextPath()%>/form">Crear [+]</a></p>
 <table>
     <tr>
         <th>id</th>
@@ -32,6 +33,7 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
             <td><%= c.getNombre()%></td>
             <td><%= c.getInstructor()%></td>
             <td><%= c.getDuracion()%></td>
+            <td><a href="<%= request.getContextPath()%>/form?id=<%= c.getId()%>">Editar</a></td>
         </tr>
 
     <% } %>

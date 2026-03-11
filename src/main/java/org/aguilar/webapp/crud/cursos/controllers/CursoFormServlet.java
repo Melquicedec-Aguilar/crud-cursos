@@ -9,12 +9,39 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.aguilar.webapp.crud.cursos.models.Curso;
 import org.aguilar.webapp.crud.cursos.service.CursoService;
 import org.aguilar.webapp.crud.cursos.service.CursoServiceJdbc;
 
 @WebServlet("/form")
 public class CursoFormServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Connection conn = (Connection) req.getAttribute("conn");
+
+        CursoService service = new CursoServiceJdbc(conn);
+
+        Long id;
+
+        try {
+            id = Long.valueOf(req.getParameter("id"));
+        } catch (NumberFormatException e){
+            id = 0L;
+        }
+
+        Curso curso = new Curso();
+
+        if (id>0){
+            Optional<Curso> o = service.porId(id);
+            if (o.isPresent()){
+                curso = o.get();
+            }
+        }
+
+        req.setAttribute("curso", curso);
+        getServletContext().getRequestDispatcher("/form.jsp").forward(req,resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,7 +95,7 @@ public class CursoFormServlet extends HttpServlet {
         }else {
             req.setAttribute("errores", errores);
             req.setAttribute("curso", curso);
-            getServletContext().getRequestDispatcher("/listar.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/form.jsp").forward(req, resp);
         }
     }
 }

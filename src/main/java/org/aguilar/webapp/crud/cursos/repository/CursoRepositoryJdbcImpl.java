@@ -60,7 +60,7 @@ public class CursoRepositoryJdbcImpl implements Repository<Curso> {
         Curso curso = new Curso();
 
         //Se abre un try con recursos para que se cierre de forma automatica la conexión
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT c.nombre FROM cursos as c WHERE c.id = ?")){
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM cursos as c WHERE c.id = ?")){
 
             stmt.setLong(1, id);
 

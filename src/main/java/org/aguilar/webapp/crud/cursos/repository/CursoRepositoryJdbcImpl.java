@@ -80,7 +80,7 @@ public class CursoRepositoryJdbcImpl implements Repository<Curso> {
         if (curso.getId() != null && curso.getId() > 0){
             sql = "UPDATE cursos SET nombre = ?, descripcion = ?, instructor = ?, duracion = ? WHERE id = ?";
         }else {
-            sql = "INSERT INTO cursos (nombre, descripcion, instructor, duracion,) values (?, ?, ?, ?)";
+            sql = "INSERT INTO cursos (nombre, descripcion, instructor, duracion) values (?, ?, ?, ?)";
         }
         try (PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, curso.getNombre());

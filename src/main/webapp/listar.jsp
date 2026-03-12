@@ -34,6 +34,8 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
             <td><%= c.getInstructor()%></td>
             <td><%= c.getDuracion()%></td>
             <td><a href="<%= request.getContextPath()%>/form?id=<%= c.getId()%>">Editar</a></td>
+            <td><a onclick="return confirm('Estas seguro que deseas elimar?');"
+            href="<%= request.getContextPath()%>/eliminar?id=<%= c.getId()%>">Eliminar</a></td>
         </tr>
 
     <% } %>

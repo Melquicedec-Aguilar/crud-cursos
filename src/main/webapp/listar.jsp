@@ -1,8 +1,5 @@
-<%@page contentType="UTF-8" import="java.util.*, org.aguilar.webapp.crud.cursos.models.*"%>
-
-<%
-List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
-%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +13,7 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
     <input type="text" name="nombre">
     <input type="submit" value="Buscar">
 </form>
-<p><a href="<%= request.getContextPath()%>/form">Crear [+]</a></p>
+<p><a href="${pageContext.request.contextPath}/form">Crear [+]</a></p>
 <table>
     <tr>
         <th>id</th>
@@ -25,20 +22,18 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
         <th>duracion</th>
     </tr>
 
-    <%
-    for (Curso c : cursos) {
-    %>
-        <tr>
-            <td><%= c.getId()%></td>
-            <td><%= c.getNombre()%></td>
-            <td><%= c.getInstructor()%></td>
-            <td><%= c.getDuracion()%></td>
-            <td><a href="<%= request.getContextPath()%>/form?id=<%= c.getId()%>">Editar</a></td>
+    <c:forEach items="${cursos}" var="c">
+         <tr>
+            <td>${c.id}</td>
+            <td>${c.nombre}</td>
+            <td>${c.instructor}</td>
+            <td>${c.duracion}</td>
+            <td><a href="${pageContext.request.contextPath}/form?id=<c:out value="${c.id}" />">Editar</a></td>
             <td><a onclick="return confirm('Estas seguro que deseas elimar?');"
-            href="<%= request.getContextPath()%>/eliminar?id=<%= c.getId()%>">Eliminar</a></td>
+            href="${pageContext.request.contextPath}/eliminar?id=<c:out value ="{c.id}" />">Eliminar</a></td>
         </tr>
 
-    <% } %>
+    </c:forEach>
 </table>
 </body>
 </html>

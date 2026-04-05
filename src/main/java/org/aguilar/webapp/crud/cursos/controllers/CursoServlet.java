@@ -22,6 +22,7 @@ public class CursoServlet extends HttpServlet {
 
         List<Curso> cursoList = service.listar();
         req.setAttribute("cursos", cursoList);
+        req.setAttribute("tittle", "Tarea9: Listado de cursos");
 
         getServletContext().getRequestDispatcher("/listar.jsp").forward(req,resp);
     }
